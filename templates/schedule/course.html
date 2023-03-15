@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+{{ course.title }}
+{% endblock %}
+
+
+{% block body %}
+
+<h3>Feel free to choose any course</h3>
+<h3>you are interested in!</h3>
+<h3>Upgrade your professional skills</h3>
+<h3>with our school!</h3>
+<br>
+<h2>Name of the program: {{ course.title }}</h2>
+<p>Short description of the course: {{ course.info }}</p>
+<p>Course duration: {{ course.duration_months }} months</p>
+<p>Total price: {{ course.price }} $</p>
+<br>
+<h2>Teachers of the course:</h2>
+<p>
+{% for teacher in course.teacher.all %}
+<p><a href="{{ teacher.get_absolute_url }}">{{ teacher.name }} {{ teacher.surname }}</a></p>
+{% endfor %}
+</p>
+<br>
+<h2>Already studying:</h2>
+<p>
+{% for student in course_students %}
+<p>{{ student.name }} {{ student.surname }}</p>
+{% endfor %}
+</p>
+<br>
+<h2>Join us!</h2>
+<p><a href="{% url 'application_url' %}?id={{ course.pk }}">Apply to the course {{ course.title }}</a></p>
+
+<p><a href="{% url 'main_url' %}">Go back to the list of courses</a></p>
+
+{% endblock %}
